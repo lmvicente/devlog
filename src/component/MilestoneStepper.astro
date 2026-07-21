@@ -1,0 +1,25 @@
+---
+const { milestones } = Astro.props;
+---
+
+{milestones.length > 0 && (
+    <div class="flex items-center w-full py-4">
+        {milestones.map((entry: any, index: any) => (
+            <>
+                <a href={"#" + entry.id.replaceAll("/", "-")}
+          class="flex flex-col items-center flex-none">
+
+                <div class="w-7 h-7 rounded-full bg-blue-100 border-2 border-blue-500 flex items-center justify-center text-blue-700 text-sm font-medium">
+                    {index + 1}
+                </div>
+                <span class="text-xs text-gray-500 mt-2 max-w-20 text-center">
+                    {entry.data.title}
+                </span>
+          </a>
+          {index < milestones.length -1 && (
+            <div class="flex-1 h-0.5 bg-gray-300 mx-1 mb-6"></div>
+          )}
+            </>
+        ))}
+    </div>
+)}

@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import ProjectLogItem  from "../../component/ProjectLogItem.astro"
+import MilestoneStepper from "../../component/MilestoneStepper.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { project: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const allEntries = await getCollection("entries");
+const projectEntries = allEntries
+  .filter((entry) => entry.id.startsWith(project.id + "/"))
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());  // oldest first
+console.log("ENTRY IDS:", allEntries.map(e => e.id));
+
+const milestones = projectEntries.filter((e) => e.data.milestone);
+---
+
+<BaseLayout title={project.data.title}>
+
+    <h1 class="text-2xl font-bold">{project.data.title}</h1>
+    <p>{project.data.description}</p>
+
+    <MilestoneStepper milestones={milestones} />
+
+    {projectEntries.map((entry) => (
+        <ProjectLogItem entry={entry}/>
+    ))}
+</BaseLayout>

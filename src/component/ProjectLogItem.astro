@@ -1,0 +1,15 @@
+---
+import { render } from "astro:content";
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const { title, date, milestone, tags } = entry.data;
+---
+
+<div class={milestone ? "border-l-4 border-blue-500 pl-4" : "pl-4"}>
+    {title && <h3 class="font-bold">{title}</h3>}
+    <p class="text-gray-500 text-sm">{date.toLocaleDateString()}</p>
+    <Content />
+    {tags && <div class="text-xs text-gray-400">{tags.join(", ")}</div>}
+</div>
