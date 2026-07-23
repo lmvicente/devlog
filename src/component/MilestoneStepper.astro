@@ -1,25 +1,34 @@
 ---
+import type { CollectionEntry } from "astro:content";
+import { slugify } from "../lib/ids";
+
+interface Props {
+  milestones: CollectionEntry<"entries">[];
+}
+
 const { milestones } = Astro.props;
 ---
 
 {milestones.length > 0 && (
-    <div class="flex items-center w-full py-4">
-        {milestones.map((entry: any, index: any) => (
-            <>
-                <a href={"#" + entry.id.replaceAll("/", "-")}
-          class="flex flex-col items-center flex-none">
+  <ol class="flex items-start w-full py-4">
+    {milestones.map((entry, index) => (
+      <li class="contents">
+        
+          <a href={`#${slugify(entry.id)}`}
+          class="flex flex-col items-center flex-none group"
+        >
+          <div class="w-7 h-7 rounded-full bg-blue-100 border-2 border-blue-500 flex items-center justify-center text-blue-700 text-sm font-medium transition-colors group-hover:bg-blue-500 group-hover:text-white">
+            {index + 1}
+          </div>
+          <span class="text-xs text-neutral-500 mt-2 max-w-20 text-center leading-tight">
+            {entry.data.title}
+          </span>
+        </a>
 
-                <div class="w-7 h-7 rounded-full bg-blue-100 border-2 border-blue-500 flex items-center justify-center text-blue-700 text-sm font-medium">
-                    {index + 1}
-                </div>
-                <span class="text-xs text-gray-500 mt-2 max-w-20 text-center">
-                    {entry.data.title}
-                </span>
-          </a>
-          {index < milestones.length -1 && (
-            <div class="flex-1 h-0.5 bg-gray-300 mx-1 mb-6"></div>
-          )}
-            </>
-        ))}
-    </div>
+        {index < milestones.length - 1 && (
+          <div class="flex-1 h-0.5 bg-neutral-200 mx-1 self-start mt-3.5" />
+        )}
+      </li>
+    ))}
+  </ol>
 )}

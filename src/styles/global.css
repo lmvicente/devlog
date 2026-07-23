@@ -1,1 +1,6 @@
 @import "tailwindcss";
+html { scroll-behavior: smooth; }
+
+.prose img {
+  @apply rounded-lg border border-neutral-200;
+}

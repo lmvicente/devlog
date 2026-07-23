@@ -13,13 +13,14 @@ const projects = defineCollection({
 })
 
 const entries = defineCollection({
-   loader: glob({ pattern: "**/!(index).md", base: "./src/project-log" }),
-    schema: z.object({
-        date: z.coerce.date(),
-        title: z.string(),
-        milestone: z.boolean().default(false),
-        tags: z.array(z.string()).optional(),
-    }),
-})
+  loader: glob({ pattern: "**/!(index).md", base: "./src/project-log" }),
+  schema: ({ image }) => z.object({
+    date: z.coerce.date(),
+    title: z.string(),
+    milestone: z.boolean().default(false),
+    tags: z.array(z.string()).optional(),
+    cover: image().optional(),
+  }),
+});
 
 export const collections = { projects , entries }
