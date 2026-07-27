@@ -7,12 +7,52 @@ const projectsCollection = await getCollection("projects");
 ---
 
 <BaseLayout title="DevLog">
-	<div class="flex flex-row flex-wrap basis-md justify-center-safe gap-4 mt-6">
-		  {projectsCollection.map((project) => (
-    <a href={`/projects/${project.id}`}>
-      <ProjectCard title={project.data.title} startDate={project.data.startedDate} description={project.data.description} techstack={project.data.techstack} />
-    </a>
-  ))}
-	</div>
+  <div class="mx-auto max-w-6xl px-5 pb-20 pt-16 sm:px-8 sm:pt-24">
+    <section class="max-w-3xl">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/80 px-3 py-1.5 text-xs font-semibold text-indigo-700 shadow-sm dark:border-indigo-900 dark:bg-indigo-950/70 dark:text-indigo-300">
+        <span class="size-1.5 rounded-full bg-emerald-500"></span>
+        Project journal
+      </div>
+      <h1 class="text-4xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-6xl dark:text-white">
+        Notes from the work,
+        <span class="text-slate-400 dark:text-slate-500">not just the launch.</span>
+      </h1>
+      <p class="mt-6 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg dark:text-slate-400">
+        A running record of projects I’m building—decisions, milestones, problems,
+        and the useful things learned along the way.
+      </p>
+    </section>
 
+    <section class="mt-16 sm:mt-24" aria-labelledby="projects-heading">
+      <div class="mb-6 flex items-end justify-between border-b border-slate-200 pb-5 dark:border-slate-800">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">
+            Selected work
+          </p>
+          <h2 id="projects-heading" class="mt-2 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            Projects
+          </h2>
+        </div>
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+          {projectsCollection.length} {projectsCollection.length === 1 ? "project" : "projects"}
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2">
+        {projectsCollection.map((project) => (
+          <a
+            href={`/projects/${project.id}`}
+            class="rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-4 dark:focus-visible:ring-offset-slate-950"
+          >
+            <ProjectCard
+              title={project.data.title}
+              startDate={project.data.startedDate}
+              description={project.data.description}
+              techstack={project.data.techstack}
+            />
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
 </BaseLayout>

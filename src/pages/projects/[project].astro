@@ -16,26 +16,94 @@ const { project } = Astro.props;
 const allEntries = await getCollection("entries");
 const projectEntries = allEntries
   .filter((entry) => entry.id.startsWith(project.id + "/"))
-  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());  // oldest first
-console.log("ENTRY IDS:", allEntries.map(e => e.id));
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
 const milestones = projectEntries.filter((e) => e.data.milestone);
+const technologies = project.data.techstack
+  .split(",")
+  .map((technology: string) => technology.trim())
+  .filter(Boolean);
+const startedDate = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  year: "numeric",
+}).format(project.data.startedDate);
 ---
 
 <BaseLayout title={project.data.title}>
-  <div class="container mx-auto mt-6">
-    <div class="mb-4">
-      <h1 class="text-2xl font-bold">{project.data.title}</h1>
-      <p>{project.data.description}</p>
-    </div>
+  <div class="mx-auto max-w-6xl px-5 pb-24 pt-8 sm:px-8 sm:pt-12">
+    <a
+      href="/"
+      class="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400"
+    >
+      <svg class="size-4" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m15 18-6-6 6-6"></path>
+      </svg>
+      All projects
+    </a>
 
+    <header class="mt-8 overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div class="p-7 sm:p-10 lg:p-12">
+        <div class="flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+          <span class="font-semibold text-indigo-600 dark:text-indigo-400">Case log</span>
+          <span class="size-1 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+          <span>Started {startedDate}</span>
+        </div>
+        <h1 class="mt-5 max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-5xl lg:text-6xl dark:text-white">
+          {project.data.title}
+        </h1>
+        <p class="mt-5 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg dark:text-slate-400">
+          {project.data.description}
+        </p>
+      </div>
 
+      <div class="flex flex-wrap gap-2 border-t border-slate-100 bg-slate-50/70 px-7 py-5 sm:px-10 lg:px-12 dark:border-slate-800 dark:bg-slate-950/30">
+        {technologies.map((technology: string) => (
+          <span class="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
+            {technology}
+          </span>
+        ))}
+      </div>
+    </header>
 
-    <h2 class="uppercase text-gray-400 font-bold text-xs tracking-wider">Milestone Tracker</h2>
-    <MilestoneStepper milestones={milestones} />
+    {milestones.length > 0 && (
+      <section class="mt-8 rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8 dark:border-slate-800 dark:bg-slate-900" aria-labelledby="milestones-heading">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">
+              Progress
+            </p>
+            <h2 id="milestones-heading" class="mt-1 text-lg font-semibold text-slate-950 dark:text-white">
+              Milestone tracker
+            </h2>
+          </div>
+          <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+            {milestones.length} {milestones.length === 1 ? "milestone" : "milestones"}
+          </span>
+        </div>
+        <MilestoneStepper milestones={milestones} />
+      </section>
+    )}
 
-    {projectEntries.map((entry) => (
+    <section class="mx-auto mt-16 max-w-4xl" aria-labelledby="project-log-heading">
+      <div class="mb-8 flex items-end justify-between border-b border-slate-200 pb-5 dark:border-slate-800">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">
+            From the build
+          </p>
+          <h2 id="project-log-heading" class="mt-2 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
+            Project log
+          </h2>
+        </div>
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+          {projectEntries.length} {projectEntries.length === 1 ? "entry" : "entries"}
+        </p>
+      </div>
+
+      <div class="space-y-5">
+        {projectEntries.map((entry) => (
         <ProjectLogItem entry={entry}/>
-    ))}
+        ))}
+      </div>
+    </section>
   </div>
 </BaseLayout>
