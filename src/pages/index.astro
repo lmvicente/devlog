@@ -10,7 +10,7 @@ const projectsCollection = await getCollection("projects");
 	<div class="flex flex-row flex-wrap basis-md justify-center-safe gap-4 mt-6">
 		  {projectsCollection.map((project) => (
     <a href={`/projects/${project.id}`}>
-      <ProjectCard title={project.data.title} startDate={project.data.startedDate} />
+      <ProjectCard title={project.data.title} startDate={project.data.startedDate} description={project.data.description} techstack={project.data.techstack} />
     </a>
   ))}
 	</div>

@@ -9,6 +9,8 @@ const projects = defineCollection({
         title: z.string(),
         description: z.string(),
         startedDate: z.coerce.date(),
+        techstack: z.string(),
+
     }) 
 })
 
