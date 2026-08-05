@@ -26,9 +26,18 @@ npm run dev
 
 Open `http://localhost:4321` in your browser.
 
+## Example content
+
+The repo ships with two sample projects in `src/project-log/` so you can see how everything fits together before replacing them with your own work:
+
+- `habit-tracker-app/` — a longer project log with milestones, tags, and multiple entries
+- `portfolio-redesign/` — a shorter log focused on design and launch notes
+
+Browse them locally at `/projects/habit-tracker-app` and `/projects/portfolio-redesign`, or open the Markdown files directly and use them as a reference when writing your own.
+
 ## Make it yours
 
-Start by removing the example folders inside `src/project-log/`. Then update the following files with your own name, copy, and visual identity:
+Delete the demo folders in `src/project-log/` (`habit-tracker-app/` and `portfolio-redesign/`), then update the following files with your own name, copy, and visual identity:
 
 - `src/component/Header.astro` — site name, logo letter, and header tagline
 - `src/pages/index.astro` — homepage heading and introduction
@@ -40,7 +49,7 @@ Project data is validated by `src/content.config.ts`. Update its schemas if you 
 
 ## Add a project
 
-Create a folder in `src/project-log/`. The folder name becomes the project's URL slug, so use a short, lowercase, hyphenated name.
+Create a folder in `src/project-log/`. The folder name becomes the project's URL slug, so use a short, lowercase, hyphenated name. See `src/project-log/habit-tracker-app/index.md` for a working example.
 
 ```text
 src/project-log/my-project/
@@ -53,7 +62,7 @@ Add the project's details to `index.md`:
 ---
 title: "My Project"
 description: "A short explanation of what I am building and why."
-startedDate: 2026-07-26
+startedDate: 2026-01-10
 techstack: "Astro, TypeScript, Tailwind CSS"
 ---
 ```
@@ -62,12 +71,12 @@ The project will appear automatically on the homepage at `/projects/my-project`.
 
 ## Add a log entry
 
-Add another Markdown file to the same project folder. The filename is only used to organize your content, but a date-first format keeps the directory easy to scan.
+Add another Markdown file to the same project folder. The filename is only used to organize your content, but a date-first format keeps the directory easy to scan. See `src/project-log/habit-tracker-app/2026-01-10-kickoff.md` for a milestone entry, or `2026-01-22-data-model.md` for a regular update.
 
 ```text
 src/project-log/my-project/
 ├── index.md
-└── 2026-07-26-project-kickoff.md
+└── 2026-01-10-kickoff.md
 ```
 
 Each entry needs a title and date:
@@ -75,13 +84,13 @@ Each entry needs a title and date:
 ```md
 ---
 title: "Project kickoff"
-date: 2026-07-26
-tags: [planning, research]
+date: 2026-01-10
+tags: [planning, product]
 milestone: true
 ---
 
-Today I defined the first version of the project and documented the main
-constraints. Next, I will build the smallest working prototype.
+Defined the first version and documented the main constraints. Next, I will
+build the smallest working prototype.
 ```
 
 `milestone` defaults to `false`, and `tags` is optional. Entries marked as milestones also appear in the project's milestone tracker.
@@ -109,7 +118,7 @@ Log entries are displayed chronologically using their `date` value.
 │   ├── component/             # Reusable Astro components
 │   ├── layouts/               # Shared page layout and metadata
 │   ├── pages/                 # Homepage and generated project routes
-│   ├── project-log/           # Your Markdown projects and entries
+│   ├── project-log/           # Demo projects and your Markdown entries
 │   ├── styles/                # Global styles
 │   └── content.config.ts      # Project and entry schemas
 ├── astro.config.mjs
