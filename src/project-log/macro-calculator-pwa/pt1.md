@@ -1,5 +1,5 @@
 ---
-title: "Scaffoling the Project"
+title: "Speccing out the Project"
 date: 2026-07-22
 milestone: true
 tags: [VSCode, Vite, Typescript, Tailwind, React]

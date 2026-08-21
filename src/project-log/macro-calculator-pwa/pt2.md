@@ -1,5 +1,5 @@
 ---
-title: "Scaffoling the Project"
+title: "Setting up the basic utilities, UI, and tests"
 date: 2026-08-14
 milestone: true
 tags: [VSCode, Vite, Typescript, Tailwind, React]

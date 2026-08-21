@@ -1,5 +1,5 @@
 ---
-title: "Scaffoling the Project"
+title: "Database time!"
 date: 2026-08-22
 milestone: true
 tags: [VSCode, Vite, Typescript, Tailwind, React, Dexie]
