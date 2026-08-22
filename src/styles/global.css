@@ -43,3 +43,16 @@
     @apply rounded-2xl border border-slate-200 shadow-sm dark:border-slate-700;
   }
 }
+
+@layer utilities {
+  .dark .prose {
+    color: var(--color-slate-100);
+    --tw-prose-body: var(--color-slate-100);
+    --tw-prose-lead: var(--color-slate-100);
+    --tw-prose-quotes: var(--color-slate-200);
+    --tw-prose-captions: var(--color-slate-300);
+    --tw-prose-counters: var(--color-slate-400);
+    --tw-prose-bullets: var(--color-slate-500);
+    --tw-prose-bold: var(--color-white);
+  }
+}
