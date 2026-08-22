@@ -10,6 +10,6 @@ Once I finshed the entry screens, it was onto simply displaying the data! I did 
 Part of the specifications of the app was that the day view didn't show the food I ate. It is less about the actual, specific food and more about the macro-nutrients I am taking in.
 
 <video width="640" height="480" controls>
-  <source src="record.mov" type="video/mp4">
+  <source src="./record.mov" type="video/mp4">
   Your browser does not support the video tag.
 </video>
