@@ -1,6 +1,6 @@
 ---
 title: "New UI and an API"
-date: 2026-08-22
+date: 2026-11-01
 milestone: true
 tags: [VSCode, Vite, Typescript, Tailwind, React, Dexie, Render, Azure DevOps, Azure Static Sites, Hono, API, Supabase]
 ---
